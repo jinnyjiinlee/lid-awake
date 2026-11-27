@@ -98,7 +98,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         if !defaults.bool(forKey: "welcomed") {
             defaults.set(true, forKey: "welcomed")
-            DispatchQueue.main.async { self.showWelcome() }
+            DispatchQueue.main.async { self.showWelcome(); self.showPanel() }
+        } else {
+            DispatchQueue.main.async { self.showPanel() }
+        }
+    }
+
+    // 앱 아이콘을 다시 더블클릭하면 조작 창을 띄운다 (메뉴바 아이콘이 노치에 가려진 경우 대비)
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showPanel()
+        return false
+    }
+
+    func showPanel() {
+        refresh()
+        NSApp.activate(ignoringOtherApps: true)
+        let a = NSAlert()
+        a.messageText = isOn ? "지금: 켜짐 ☕ 뚜껑 닫아도 안 꺼져요" : "지금: 꺼짐 🌙 평소처럼 잠들어요"
+        a.informativeText = """
+        화면 맨 위 오른쪽 메뉴바의 컵·달 아이콘으로도 켜고 끌 수 있어요.
+        아이콘이 안 보이면 이 앱을 다시 더블클릭하면 이 창이 떠요.
+        """
+        a.addButton(withTitle: isOn ? "끄기" : "켜기")
+        a.addButton(withTitle: "닫기")
+        if a.runModal() == .alertFirstButtonReturn {
+            if isOn { turnOff(note: nil) } else { turnOn(hours: nil) }
+            showPanel()
         }
     }
 
