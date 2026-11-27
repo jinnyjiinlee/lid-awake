@@ -208,12 +208,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc func installRule() {
         let user = NSUserName()
-        let rule = "\(user) ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 0, /usr/bin/pmset -a disablesleep 1\n"
-        let tmp = NSTemporaryDirectory() + "lidawake.sudoers"
-        do { try rule.write(toFile: tmp, atomically: true, encoding: .utf8) } catch { return }
-        let cmd = "/usr/sbin/visudo -cf '\(tmp)' && /usr/bin/install -m 0440 -o root -g wheel '\(tmp)' \(sudoersPath)"
+        // 사용자 이름은 안전한 문자만 허용 (셸·sudoers 주입 방지)
+        guard user.range(of: "^[A-Za-z0-9_.-]+$", options: .regularExpression) != nil else {
+            alert("설정할 수 없어요", "사용자 이름에 특수문자가 있어서 자동 설정을 할 수 없어요.")
+            return
+        }
+        let rule = "\(user) ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 0, /usr/bin/pmset -a disablesleep 1"
+        // 규칙 파일은 root 전용 임시 폴더에서 root가 직접 만든다 (사용자 폴더 파일 바꿔치기 방지)
+        let cmd = "umask 077; t=$(/usr/bin/mktemp /private/var/root/lidawake.XXXXXX) || exit 1; "
+            + "/usr/bin/printf '%s\\n' '\(rule)' > \"$t\" && /usr/sbin/visudo -cf \"$t\" "
+            + "&& /usr/bin/install -m 0440 -o root -g wheel \"$t\" \(sudoersPath); rc=$?; /bin/rm -f \"$t\"; exit $rc"
         let ok = runAsAdmin(cmd, prompt: "처음 한 번만 비밀번호를 넣으면 다음부터는 클릭만으로 켜고 끌 수 있어요.")
-        try? FileManager.default.removeItem(atPath: tmp)
         if ok { alert("설정 끝!", "이제 메뉴에서 클릭 한 번으로 켜고 끌 수 있어요.") }
     }
 
