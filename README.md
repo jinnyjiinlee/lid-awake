@@ -1,50 +1,59 @@
-# LidAwake
+<p align="center"><img src="site/icon.png" width="128" alt="LidAwake"></p>
 
-**맥북 뚜껑을 닫아도 안 꺼지게 해 주는 무료 메뉴바 앱이에요.**
+<h1 align="center">LidAwake</h1>
 
-터미널에 `sudo pmset -a disablesleep 1` 을 매번 치는 대신, 화면 맨 위 메뉴바 아이콘을 눌러 켜고 끄면 돼요.
+<p align="center"><b>맥북 뚜껑을 닫아도 안 꺼지게 해 주는 무료 메뉴바 앱</b><br>
+Keep your MacBook running with the lid closed. One click in the menu bar.</p>
 
-- ☕ 컵 아이콘 = 켜짐 (뚜껑 닫아도 안 꺼짐)
-- 🌙 달 아이콘 = 꺼짐 (평소처럼 잠자기)
+<p align="center">
+<a href="https://getlidawake.vercel.app">소개 페이지</a> ·
+<a href="https://github.com/jinnyjiinlee/lid-awake/releases/latest/download/LidAwake.zip">다운로드</a> ·
+<a href="#english">English</a>
+</p>
 
-## 다운로드
+---
 
-**[LidAwake.zip 받기](https://github.com/jinnyjiinlee/lid-awake/releases/latest/download/LidAwake.zip)**
+터미널에 `sudo pmset -a disablesleep 1` 을 매번 치는 대신, 메뉴바 아이콘을 눌러 켜고 끄면 돼요.
 
-macOS 12 이상, Apple 실리콘(M1~)과 인텔 맥 모두 돼요.
+- 해 아이콘 = 켜짐 (뚜껑 닫아도 안 꺼짐)
+- 달 아이콘 = 꺼짐 (평소처럼 잠자기)
 
-## 설치 (처음 한 번)
+## 설치
 
-1. 받은 `LidAwake.zip` 을 더블클릭해서 압축을 풀어요.
-2. `LidAwake` 앱을 **응용 프로그램** 폴더로 옮겨요.
-3. 앱을 더블클릭해요. "Apple이 확인할 수 없음" 경고가 뜨면 **완료**를 눌러 닫아요.
-4. **시스템 설정 → 개인정보 보호 및 보안** 맨 아래에서 **그래도 열기**를 눌러요.
-5. 환영 창이 뜨면 **지금 설정하기** → 맥 비밀번호를 한 번 넣어요.
-   이후로는 클릭만으로 켜고 끌 수 있어요.
+**방법 1. 한 줄 설치 (추천, 경고창 없음)**
 
-> 경고가 뜨는 이유: 애플 유료 개발자 서명을 안 한 무료 앱이라서 그래요. 소스 코드는 이 저장소에 전부 공개돼 있어요.
-
-터미널이 편하면 3~4번 대신 이 한 줄로도 돼요.
+터미널(⌘ + 스페이스 → "터미널")에 붙여넣고 엔터.
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/LidAwake.app
+curl -fsSL https://getlidawake.vercel.app/install.sh | bash
 ```
 
-## 메뉴
+**방법 2. 직접 다운로드**
 
-| 메뉴 | 하는 일 |
+1. [LidAwake.zip](https://github.com/jinnyjiinlee/lid-awake/releases/latest/download/LidAwake.zip) 받아서 더블클릭
+2. `LidAwake` 를 **응용 프로그램** 폴더로 옮기기
+3. 앱을 열면 "확인할 수 없음" 경고 → **완료**
+4. **시스템 설정 → 개인정보 보호 및 보안** 맨 아래 **그래도 열기**
+
+macOS 12 이상, Apple 실리콘·인텔 모두 돼요. 처음 열면 맥 비밀번호를 한 번만 넣어 두면, 다음부터는 클릭만으로 켜고 끌 수 있어요.
+
+## 기능
+
+| 기능 | 설명 |
 |---|---|
 | 계속 켜두기 | 끌 때까지 뚜껑 닫아도 안 꺼져요 |
-| 시간 정해서 켜기 | 1·2·4·8시간 뒤 자동으로 꺼져요 |
-| 끄기 (평소대로) | 원래대로 돌아가요 |
-| 배터리 20% 이하면 자동으로 끄기 | 기본으로 켜져 있어요. 충전 중일 땐 동작 안 해요 |
-| 비밀번호 없이 쓰기 설정 / 해제 | 처음 한 번만 비밀번호를 넣어 두는 설정 |
+| 시간 정해서 켜기 | 1·2·4·8시간 뒤 자동으로 꺼져요. 남은 시간이 메뉴바에 보여요 |
+| 배터리 안전장치 | 충전기 없이 배터리가 20% 이하면 자동으로 꺼지고 알려 줘요 |
+| 과열 안전장치 | 맥이 과열 상태가 되면 바로 꺼져요 |
+| 로그인할 때 자동 실행 | macOS 13 이상 |
+| 새 버전 알림 | 새 버전이 나오면 메뉴에 표시돼요 |
+| 한국어 / English | 맥 언어 설정에 맞춰 바뀌어요 |
 
 ## 꼭 알아 두세요
 
-- **가방에 넣을 땐 꼭 꺼 주세요.** 뚜껑 닫힌 채 켜져 있으면 열이 나고 배터리가 빨리 닳아요.
-- 이 설정은 재부팅해도 그대로 남아요. 그래서 메뉴바 아이콘으로 지금 상태를 늘 보여 줘요.
-- 앱을 종료할 때 켜져 있으면 "끄고 종료할지" 물어봐요.
+- **가방에 넣을 땐 꺼 주세요.** 안전장치가 있어도, 닫힌 채 켜져 있으면 열이 나고 배터리가 빨리 닳아요.
+- 이 설정은 재부팅해도 남아요. 그래서 메뉴바 아이콘으로 상태를 늘 보여 주고, 켜둔 채 종료하려 하면 한 번 더 물어봐요.
+- 메뉴바 아이콘이 노치에 가려 안 보이면, 응용 프로그램에서 LidAwake를 다시 열면 켜기·끄기 창이 떠요.
 
 ## 지우는 방법
 
@@ -53,20 +62,29 @@ xattr -dr com.apple.quarantine /Applications/LidAwake.app
 
 ## 어떻게 동작하나요
 
-- 켜기/끄기: `pmset -a disablesleep 1` / `0` 을 실행해요.
-- "비밀번호 없이 쓰기"는 `/etc/sudoers.d/lidawake` 파일 하나를 만들어서, **딱 이 두 명령만** 비밀번호 없이 실행되게 해요. 다른 명령에는 영향이 없어요.
-- 코드는 `Sources/main.swift` 한 파일이에요.
+- 켜기/끄기는 `pmset -a disablesleep 1` / `0` 을 실행해요.
+- "비밀번호 없이 쓰기"는 `/etc/sudoers.d/lidawake` 파일 하나를 만들어서 **딱 이 두 명령만** 비밀번호 없이 실행되게 해요.
+- 코드는 `Sources/main.swift` 한 파일이에요. 직접 빌드: `./build.sh` (Xcode 명령줄 도구 필요)
 
-## 직접 빌드
+---
+
+<a name="english"></a>
+## English
+
+LidAwake is a free menu bar app that keeps your MacBook awake with the lid closed (toggles `pmset disablesleep`).
+
+**Install**
 
 ```bash
-./build.sh
+curl -fsSL https://getlidawake.vercel.app/install.sh | bash
 ```
 
-Xcode 명령줄 도구(`xcode-select --install`)만 있으면 돼요. 결과물은 `build/LidAwake.zip`.
+Or [download the zip](https://github.com/jinnyjiinlee/lid-awake/releases/latest/download/LidAwake.zip), move it to Applications, and allow it in **System Settings → Privacy & Security → Open Anyway** (the app isn't signed with a paid Apple Developer ID).
 
-## 라이선스
+**Features:** keep awake / timer (1·2·4·8h, countdown in the menu bar) / auto-off below 20% battery / auto-off when the Mac overheats / open at login / update notice / Korean & English.
 
-MIT. 마음대로 쓰고 고쳐도 돼요.
+**Note:** turn it off before putting your Mac in a bag. The only privileged commands are `pmset -a disablesleep 1` and `0`, allowed via `/etc/sudoers.d/lidawake`.
 
-만든 곳: [DAYFOCUSLAB](https://www.dayfocuslab.com)
+## License
+
+MIT · Made by [DAYFOCUSLAB](https://www.dayfocuslab.com)
